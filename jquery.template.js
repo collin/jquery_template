@@ -21,33 +21,33 @@
     ,syntax = {
       // #{property_name}
       
-      "#\\{([\\w]+)\\}": function() {
-        return function(match) {
-          return this[match];
+      "\\#\\{([\\w]+)\\}": function(object) {
+        return function(match, attr) {
+          return object[attr];
         }
       }
       
       // ={template_name}
       
-      ,"=\\{([\\w]+)\\}": function() {
+      ,"=\\{([\\w]+)\\}": function(object) {
         return function(template) {
-          return _.template(template, this);
-        };
+          return _.template(template, object);
+        }
       }
-  
+      
       // ={template_name:property_name}
       
-      ,"=\\{([\\w]+):([\\w]+)\\}": function() {
+      ,"=\\{([\\w]+):([\\w]+)\\}": function(object) {
         return function(template, property) {
-          return _.template(template, this[property]);
-        };
+          return _.template(template, object[property]);
+        }
       }
       
       // =[template_name || object_name <- list_name]
       
-      ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function() {
+      ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function(object) {
         return function(template, object_name, list) {
-          var list = this[list]
+          var list = object[list]
             ,i, len = list.length
             ,locals, render = "";
           
@@ -57,16 +57,18 @@
             render += _.template(template, locals);  
           }
           return render;
-        };
+        }
       }
-      ,"\\?\\([\\w]+\\)": function(property) {
-        return this[property];
+      ,"\\?\\([\\w]+\\)": function(object) {
+        return function(property) {
+          return object[property];
+        }
       }
     }
     ,compiled_syntax = [];
     
   for(var slot in syntax) compiled_syntax.push({
-    regex: new RegExp(slot)
+    regex: new RegExp(slot, 'g')
     ,compiler: syntax[slot]
   });
   
@@ -75,11 +77,10 @@
       expr;
     
     return function(object) {
-      var render = "",
-        template = new String(contents);
+      var render = new String(contents);
       while(atom--) {
         expr = compiled_syntax[atom];
-        contents.replace(expr.regex, expr.compiler);
+        render =  render.replace(expr.regex, expr.compiler(object));
       }
       return render;
     }
@@ -94,7 +95,7 @@
   }
 
   _.template = function(name, contents) {
-    if(contents instanceOf String)
+    if(contents.constructor === String)
       set_template(name, contents);
     else 
       return render_template(name, contents);
