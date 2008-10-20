@@ -28,5 +28,3 @@ Then I got carried away rendering the results with the templating syntax.
 
 ![Example ui rendered from template syntax](http://img395.imageshack.us/img395/5859/screenshotlm7.png)
 
---------------------------------
-(PS: jQuery should be lurking around.)
