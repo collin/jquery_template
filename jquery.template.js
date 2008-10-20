@@ -1,22 +1,4 @@
 (function(_) {
-  function delve(str) {
-    var slots = str.split('.')
-      ,len = slots.length
-      ,i
-      ,obj = _
-      ,slot;
-    
-    for(i=0; i <len; i++) {
-      slot = slots[slot];
-      if(obj.hasOwnProperty(slot))
-        obj = obj[slot];
-      else
-        obj = obj[slot] = {}; 
-    }
-    
-    return obj;
-  }
-
   var templates = {}
     ,syntax = {
       "\\?\\(([\\w]+)\\)": function(object) {
