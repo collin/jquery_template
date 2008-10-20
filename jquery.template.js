@@ -59,16 +59,29 @@
           return render;
         };
       }
-    }
-    ,in_place = {
-      "\\?\\([\\w]+\\)": function(property) {
+      ,"\\?\\([\\w]+\\)": function(property) {
         return this[property];
       }
-    };
+    }
+    ,compiled_syntax = [];
+    
+  for(var slot in syntax) compiled_syntax.push({
+    regex: new RegExp(slot)
+    ,compiler: syntax[slot]
+  });
   
   function compile_template(contents) {
-    return function(contents) {
-      return "";
+    var atom = compiled_syntax.length,
+      expr;
+    
+    return function(object) {
+      var render = "",
+        template = new String(contents);
+      while(atom--) {
+        expr = compiled_syntax[atom];
+        contents.replace(expr.regex, expr.compiler);
+      }
+      return render;
     }
   }
   
