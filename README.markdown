@@ -20,5 +20,12 @@ Read test.js for examples.
 
 Amen!
 
+The purpose of this project is NOT to be a test runner, it WILL be a component in
+a test runner I am building on top of screw-unit. But that isn't complete, so I built
+a really quick test runner. Then I got carried away rendering the results with
+the templating syntax.
+
+![http://img395.imageshack.us/img395/5859/screenshotlm7.png]
+
 --------------------------------
 (PS: jQuery should be lurking around.)
