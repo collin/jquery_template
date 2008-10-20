@@ -11,7 +11,9 @@
       
       ,"\\#\\{([\\w]+)\\}": function(object) {
         return function(match, attr) {
-          return object[attr];
+          var obj_attr = object[attr];
+          if(_.isFunction(obj_attr)) return obj_attr();
+          return obj_attr;
         }
       }
       
@@ -28,6 +30,8 @@
       ,"=\\{([\\w]+):([\\w]+)\\}": function(object) {
         return function(match, template, property) {
           var obj_prop = object[property];
+          if(_.isFunction(obj_prop)) obj_prop = obj_prop();
+          console.log(obj_prop)
           if(obj_prop.constructor === Array) {
             var len = obj_prop.length, i, render="";
             for(i=0; i<len; i++) render += _.template(template, obj_prop[i]);
@@ -41,8 +45,11 @@
       
       ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function(object) {
         return function(match, template, object_name, list) {
-          var list = object[list]
-            ,i, len = list.length
+          var list = object[list];
+          
+          if(_.isFunction(list)) list = list();
+          
+          var i, len = list.length
             ,locals, render = "";
           
           for(i=0; i<len; i++) {

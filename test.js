@@ -47,6 +47,39 @@ jQuery(function(_){
     });
   });
   
+  _.template('fncall', "#{prop}");
+  match("woot", function() {
+    return _.template('fncall', {
+      prop: function() {return 'woot';}
+    });
+  });
+  
+  _.template('fncall_template', "={fncall:things}");
+  match('abcd', function() {
+    return _.template('fncall_template', {
+      things: function() {
+        return [{
+          prop:'a'
+        },{
+          prop:'b'
+        },{
+          prop:'c'
+        },{
+          prop:'d'
+        }];
+      }
+    })
+  });
+  
+  _.template('fncall_list_exp', "=[fncall||prop<-things]");
+  match('abcd', function() {
+    return _.template('fncall_list_exp', {
+      things: function() {
+        return "a b c d".split(/ /);
+      }
+    });
+  });
+  
   assert(function(){return false;})
   assert(function(){return biddy;})
 });
