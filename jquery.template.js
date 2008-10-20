@@ -39,7 +39,34 @@
     return obj;
   }
 
-  var templates = {};
+  var templates = {}
+    ,syntax = {
+
+      // #{property_of_current_object}
+      
+      "#\{([\w]+)\}": function() {
+        return function(match) {
+          return this[match];
+        }
+      }
+      
+      // =[template_name || object_name <- list_on_current_object]
+      
+      ,"=\[([\w]+)||([\w]+)<-([\w]+)\]": function() {
+        return function(template, object_name, list) {
+          var list = this[list]
+            ,i, len = list.length
+            ,locals, render = "";
+          
+          for(i=0; i<len; i++) {
+            locals = {};
+            locals[object_name] = list[i];
+            render += _.template(template, locals);  
+          }
+          return render;
+        }
+      }
+    };
   
   function compile_template(contents) {
     return function(contents) {
