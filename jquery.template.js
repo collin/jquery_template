@@ -19,9 +19,15 @@
 
   var templates = {}
     ,syntax = {
+      "\\?\\(([\\w]+)\\)": function(object) {
+        return function(match, property) {
+          return object[property];
+        }
+      }
+      
       // #{property_name}
       
-      "\\#\\{([\\w]+)\\}": function(object) {
+      ,"\\#\\{([\\w]+)\\}": function(object) {
         return function(match, attr) {
           return object[attr];
         }
@@ -57,11 +63,6 @@
             render += _.template(template, locals);  
           }
           return render;
-        }
-      }
-      ,"\\?\\([\\w]+\\)": function(object) {
-        return function(match, property) {
-          return object[property];
         }
       }
     }

@@ -56,4 +56,12 @@ jQuery(function(_){
       ,mars: {msg:"Hello", who:"Mars"}
     });
   });
+  
+  _.template("late", "={?(template)}")
+  match("Hello, Nurse!", function() {
+    return _.template('late', {
+      template: 'interp', msg: "Hello", who: "Nurse"
+    });
+  });
+  
 });
