@@ -2,43 +2,22 @@
  <head>
   <script src="jquery-1.2.6.js"></script>
   <script src="jquery.template.js"></script>
-  <script>
-    function pass() { console.count('pass'); }
-    function fail(result, expr, msg) {
-      console.count('fail')
-      console.warn(msg, result);
-      while_running(expr);
-    }
-    function err(expr, e) {
-      console.count('error')
-      console.error(e.message);
-      console.error(e.fileName, "+", e.lineNumber);
-      while_running(expr)
-    }
-    function while_running(expr) {
-      console.info('while running');
-      console.log(expr.toString());
-    }
-
-    function assert(expr) {
-      try {
-        var result = expr();
-        if(result) pass();
-        else fail(result, expr, 'expected true got');
-      }
-      catch(e) {err(expr, e);}
-    }
-
-    function match(val, expr) {
-      try {
-        var result = expr();
-        if(val == result) pass();
-        else fail(result, expr, 'expected '+val+' but got')
-      }
-      catch(e) {err(expr, e);}
-    }
-  
-  </script>
+  <script src="runner.js"></script>
   <script src="test.js"></script>
+  <style>
+    .results {font-size: 18px; font-family: serif; 
+              margin: 10px 0; padding: 10px; border: 1px outset;}
+    .fail, .error {color: red;}
+    .pass {color: green;}
+    .trace {display: none;}
+    .line {clear:both; line-height:150%}
+    .odd {background: lightgrey;}
+    .file {width: 600px; float: left;}
+    .file span {width: 60px; display: block; float: left;
+                text-align: right; margin-right: 10px}
+    .warning {background: #00eeff; padding: 10px}
+  </style>
  </head>
+ <body>
+ </body>
 </html>

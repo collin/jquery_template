@@ -38,4 +38,7 @@ jQuery(function(_){
       }]
     });
   });
+  
+  assert(function(){return false;})
+  assert(function(){return biddy;})
 });
