@@ -25,7 +25,7 @@ a test runner I am building on top of screw-unit. But that isn't complete, so I 
 a really quick test runner. Then I got carried away rendering the results with
 the templating syntax.
 
-!(http://img395.imageshack.us/img395/5859/screenshotlm7.png)
+![Example ui rendered from template syntax](http://img395.imageshack.us/img395/5859/screenshotlm7.png)
 
 --------------------------------
 (PS: jQuery should be lurking around.)
