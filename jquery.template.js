@@ -11,7 +11,7 @@
     
     ={template_name_to_be_rendered_with_current_object}
     
-    ={template_nome:property_of_current_object_to_render_it_with}
+    ={template_name:property_of_current_object_to_render_it_with}
     
     ?(property_name_in_place_substitution)
   
@@ -33,7 +33,7 @@
       if(obj.hasOwnProperty(slot))
         obj = obj[slot];
       else
-        obj = obj[slot] = {};
+        obj = obj[slot] = {}; 
     }
     
     return obj;
@@ -41,18 +41,31 @@
 
   var templates = {}
     ,syntax = {
-
-      // #{property_of_current_object}
+      // #{property_name}
       
-      "#\{([\w]+)\}": function() {
+      "#\\{([\\w]+)\\}": function() {
         return function(match) {
           return this[match];
         }
       }
       
-      // =[template_name || object_name <- list_on_current_object]
+      // ={template_name}
       
-      ,"=\[([\w]+)||([\w]+)<-([\w]+)\]": function() {
+      ,"=\\{([\\w]+)\\}": function() {
+        return function(template) {
+          return _.template(template, this);
+        }
+      }
+  
+      // ={template_name:property_name}
+      
+      ,"=\\{([\\w]+):([\\w]+)\\}": function(template, property) {
+        _.template(template, this[property]);
+      }
+      
+      // =[template_name || object_name <- list_name]
+      
+      ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function() {
         return function(template, object_name, list) {
           var list = this[list]
             ,i, len = list.length
@@ -65,6 +78,11 @@
           }
           return render;
         }
+      }
+    }
+    ,in_place = {
+      "\\?\\([\\w]+\\)": function(property) {
+        return this[property];
       }
     };
   
