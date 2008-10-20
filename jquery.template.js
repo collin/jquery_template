@@ -45,10 +45,8 @@
       
       ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function(object) {
         return function(match, template, object_name, list) {
-          var list = object[list];
-          
-          if(_.isFunction(list)) list = list();
-          
+          if(_.isFunction(object[list])) list = object[list]();
+          else  list = object[list];
           var i, len = list.length
             ,locals, render = "";
           
