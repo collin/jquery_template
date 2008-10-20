@@ -39,6 +39,14 @@ jQuery(function(_){
     });
   });
   
+  _.template('print', "#{ln}\n");
+  _.template('expression', "=[print||ln<-lines]");
+  match("a\nb\nc\nd\n", function() {
+    return _.template('expression', {
+      lines: "a.b.c.d".split('.')
+    });
+  });
+  
   assert(function(){return false;})
   assert(function(){return biddy;})
 });

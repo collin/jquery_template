@@ -14,7 +14,6 @@ There shall be something of a language involved.
     ?(property_name_in_place_substitution)
 
     =[template_name||object_name<-list_on_current_object]
-    *This one is commented out. It's cool, but I can't see when I'd need it.
     
 Read test.js for examples.
 

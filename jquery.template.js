@@ -56,9 +56,7 @@
       }
       
       // =[template_name || object_name <- list_name]
-      /*
-        Do not really need this one, though it would be cool if
-        I figured out why to use it. :)
+      
       ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function(object) {
         return function(match, template, object_name, list) {
           var list = object[list]
@@ -73,7 +71,6 @@
           return render;
         }
       }
-      */
     }
     ,compiled_syntax = [];
     
