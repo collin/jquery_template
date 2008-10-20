@@ -41,12 +41,18 @@
 
   var templates = {};
   
+  function compile_template(contents) {
+    return function(contents) {
+      return "";
+    }
+  }
+  
   function set_template(name, contents) {
-    template[name] = contents;
+    templates[name] = compile_template(contents);
   }
   
   function render_template(name, contents) {
-    return "";
+    return templates[name](contents);
   }
 
   _.template = function(name, contents) {
