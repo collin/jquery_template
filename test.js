@@ -48,4 +48,12 @@ jQuery(function(_){
       msg: "Hello", who: "Tests"
     });
   });
+  
+  _.template("pass", "={interp:jupiter} ={interp:mars}");
+  match("Goodbye, Jupiter! Hello, Mars!", function() {
+    return _.template('pass', {
+      jupiter: {msg:"Goodbye", who:"Jupiter"}
+      ,mars: {msg:"Hello", who:"Mars"}
+    });
+  });
 });
