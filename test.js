@@ -1,6 +1,5 @@
 jQuery(function(_){  
   _.template("interp", "#{msg}, #{who}!");
- 
   match("Hello, World!", function(){
     return _.template('interp', {
       msg: "Hello", who: "World"
@@ -26,6 +25,17 @@ jQuery(function(_){
   match("Hello, Nurse!", function() {
     return _.template('late', {
       template: 'interp', msg: "Hello", who: "Nurse"
+    });
+  });
+  
+  _.template("list", "={interp:us}")
+  match("Hello, Me!Hello, You!", function() {
+    return _.template('list', {
+      us: [{
+        msg:"Hello", who:"Me"
+      },{
+        msg:"Hello", who:"You"
+      }]
     });
   });
 });

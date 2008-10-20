@@ -45,7 +45,13 @@
       
       ,"=\\{([\\w]+):([\\w]+)\\}": function(object) {
         return function(match, template, property) {
-          return _.template(template, object[property]);
+          var obj_prop = object[property];
+          if(obj_prop.constructor === Array) {
+            var len = obj_prop.length, i, render="";
+            for(i=0; i<len; i++) render += _.template(template, obj_prop[i]);
+            return render;
+          }
+          return _.template(template, obj_prop);
         }
       }
       
