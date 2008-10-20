@@ -17,5 +17,5 @@ There shall be something of a language involved.
 
 Amen!
 
-==============================
+--------------------------------
 (PS: jQuery should be lurking around.)
