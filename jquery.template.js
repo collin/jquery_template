@@ -30,7 +30,7 @@
       // ={template_name}
       
       ,"=\\{([\\w]+)\\}": function(object) {
-        return function(template) {
+        return function(match, template) {
           return _.template(template, object);
         }
       }
@@ -38,7 +38,7 @@
       // ={template_name:property_name}
       
       ,"=\\{([\\w]+):([\\w]+)\\}": function(object) {
-        return function(template, property) {
+        return function(match, template, property) {
           return _.template(template, object[property]);
         }
       }
@@ -46,7 +46,7 @@
       // =[template_name || object_name <- list_name]
       
       ,"=\\[([\\w]+)\\|\\|([\\w]+)<-(\\w+)\\]": function(object) {
-        return function(template, object_name, list) {
+        return function(match, template, object_name, list) {
           var list = object[list]
             ,i, len = list.length
             ,locals, render = "";
@@ -60,7 +60,7 @@
         }
       }
       ,"\\?\\([\\w]+\\)": function(object) {
-        return function(property) {
+        return function(match, property) {
           return object[property];
         }
       }
@@ -73,13 +73,14 @@
   });
   
   function compile_template(contents) {
-    var atom = compiled_syntax.length,
-      expr;
+    var len = compiled_syntax.length
+      ,i
+      ,expr;
     
     return function(object) {
       var render = new String(contents);
-      while(atom--) {
-        expr = compiled_syntax[atom];
+      for(i=0; i<len; i++) {
+        expr = compiled_syntax[i];
         render =  render.replace(expr.regex, expr.compiler(object));
       }
       return render;

@@ -7,6 +7,7 @@ function fail(result, expr, msg) {
 function err(expr, e) {
   console.count('error')
   console.error(e.message);
+  console.error(e.fileName, "+", e.lineNumber);
   while_running(expr)
 }
 function while_running(expr) {
@@ -32,12 +33,19 @@ function match(val, expr) {
   catch(e) {err(expr, e);}
 }
 
-jQuery(function(_){
+jQuery(function(_){  
+  _.template("interp", "#{msg}, #{who}!");
+ 
   match("Hello, World!", function(){
-    _.template("interp", "#{msg}, #{who}!");
-  
     return _.template('interp', {
       msg: "Hello", who: "World"
+    });
+  });
+ 
+  _.template("defer", "={interp} ={interp}") 
+  match("Hello, Tests! Hello, Tests!", function() {
+    return _.template('defer', {
+      msg: "Hello", who: "Tests"
     });
   });
 });
