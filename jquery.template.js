@@ -1,25 +1,3 @@
-/*
-  Hear ye, hear ye!
-  
-  I want to mash my strings together and interpolate values with JS objects.
-
-  There shall be something of a language involved.
-  
-    =[template_name || object_name <- list_on_current_object]
-    
-    #{property_of_current_object}
-    
-    ={template_name_to_be_rendered_with_current_object}
-    
-    ={template_name:property_of_current_object_to_render_it_with}
-    
-    ?(property_name_in_place_substitution)
-  
-  Amen!
-  
-  (PS: jQuery should be lurking around.)
-*/
-
 (function(_) {
   function delve(str) {
     var slots = str.split('.')
@@ -54,13 +32,15 @@
       ,"=\\{([\\w]+)\\}": function() {
         return function(template) {
           return _.template(template, this);
-        }
+        };
       }
   
       // ={template_name:property_name}
       
-      ,"=\\{([\\w]+):([\\w]+)\\}": function(template, property) {
-        _.template(template, this[property]);
+      ,"=\\{([\\w]+):([\\w]+)\\}": function() {
+        return function(template, property) {
+          return _.template(template, this[property]);
+        };
       }
       
       // =[template_name || object_name <- list_name]
@@ -77,7 +57,7 @@
             render += _.template(template, locals);  
           }
           return render;
-        }
+        };
       }
     }
     ,in_place = {
