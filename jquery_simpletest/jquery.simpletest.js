@@ -15,6 +15,7 @@ counts = {
   ");
   
   _.template('while_running', "\
+    <hr/>\
     <pre class='running'>\
 #{fn_string}\
     </pre>\
@@ -35,7 +36,6 @@ counts = {
       </button>\
       ={line:stack}\
     </div>\
-    <hr/>\
   ");
   
   _.template('line', "\
@@ -150,8 +150,8 @@ counts = {
   function pass() { count('pass'); }
   function fail(result, expr, msg) {
     count('fail')
-    while_running(expr);
     warn(msg, result);
+    while_running(expr);
   }
   
   function assert(expr) {

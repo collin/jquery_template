@@ -1,0 +1,11 @@
+.results {font-size: 18px; font-family: serif; 
+          margin: 10px 0; padding: 10px; border: 1px outset;}
+.fail, .error {color: red;}
+.pass {color: green;}
+.trace {display: none;}
+.line {clear:both; line-height:150%}
+.odd {background: lightgrey;}
+.file {width: 600px; float: left;}
+.file span {width: 60px; display: block; float: left;
+            text-align: right; margin-right: 10px}
+.warning {background: #00eeff; padding: 10px}
