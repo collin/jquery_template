@@ -1,7 +1,13 @@
 Hear ye, hear ye!
 ==============================
 
-New shit has come to light.
+Making a template:
+
+    jQuery.template('name_of_template', template_string);
+    
+Rendering a template:
+
+    jQuery.template('name_of_template', {/* Object to render with. */});
 
 Let us all welcome Ruby to the party.
 
@@ -50,14 +56,6 @@ Long-hand notation for '=[storefront||developer_name<-names]'
 As a bonus, if any property on the object being rendered is a function, it will
 called at render-time and the return value of that function used as if it were
 the property itself.
-
-Making a template:
-
-    jQuery.template('name_of_template', template_string);
-    
-Rendering a template:
-
-    jQuery.template('name_of_template', {/* Object to render with. */});
 
 
 _original README_
