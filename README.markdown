@@ -9,6 +9,8 @@ Rendering a template:
 
     jQuery.template('name_of_template', {/* Object to render with. */});
 
+[Read test.js for examples of all the templating syntax.](http://github.com/collin/jquery_template/tree/master/test.js)
+
 Let us all welcome Ruby to the party.
 
 ## module JQuery::Template
