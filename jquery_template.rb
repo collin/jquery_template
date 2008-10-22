@@ -54,15 +54,15 @@ module JQuery
       end
       
       def translation
-        name, list_name = *translation_options
-        ""
+        list_name, name = *translation_options
+        "#{name}<-#{list_name}"
       end
       
       def translation_options
         opts = translate.to_a
         raise TooManyTranslationsError if opts.length > 1
         raise TranslationUnspicifiedError if opts.length == 0
-        return opts
+        return opts.first
       end
       
       def only_template

@@ -20,7 +20,8 @@ describe JQuery::Template do
   end
   
   it "renders list expression syntax" do
-    render(:template => :storefront, :translate => {:buyers => :customer_name})
+    render(:template => :storefront, :translate => {:names => :developer_name}).
+      should == "=[storefront||developer_name<-names]"
   end
   
   it "requires template with object" do
